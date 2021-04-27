@@ -1,25 +1,12 @@
-const http = require('http')
+const express = require('express')
+const dotenv = require("dotenv")
 
-const todos = [
-    { id: 1, text: 'Todo One'},
-    { id: 3, text: 'Todo Two'},
-    { id: 3, text: 'Todo Three'}
-]
 
-const server = http.createServer((req, res) => {
-    res.setHeader('Content-Type', 'application,json')
-    res.setHeader('X-Powered-By', 'GET-REKT')
-    res.write('<h1>Hello</h1>')
-    res.write('<h2>Hello</h2>')
-    res.write('HELLO')
-    res.end(JSON.stringify({
-        success: true,
-        data: todos
-    }))
-})
+// Load env files
+dotenv.config({ path: './config/config.env'})
 
-const PORT = 5000
+const app = express()
 
-server.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`)
-})
+const PORT = process.env.PORT || 5000
+
+app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`))
