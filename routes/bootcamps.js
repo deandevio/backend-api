@@ -12,7 +12,6 @@ router.route("/").get(getBootcamps).post(createBootcamp);
 router
   .route("/:id")
   .get(getBootcamp)
-  .post(getBootcamp)
   .delete(deleteBootcamp)
   .put(updateBootcamp);
 
