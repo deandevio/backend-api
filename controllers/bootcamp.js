@@ -1,5 +1,4 @@
 const { response } = require("express");
-const { TimeoutError } = require("got");
 const Bootcamp = require("../models/Bootcamp");
 
 exports.getBootcamps = async (req, res, next) => {
