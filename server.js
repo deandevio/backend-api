@@ -24,9 +24,6 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // Mount routers
-<<<<<<< HEAD
-app.use('/api/v1/bootcamps', bootcamps)
-=======
 
 app.use("/api/v1/bootcamps", bootcamps);
 
@@ -38,7 +35,6 @@ const server = app.listen(
     `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.blue.bold
   )
 );
->>>>>>> 253b84d1ceb417e5fa9a48f1db62cd023374bd4e
 
 // Handle unhandled promise rejections
 process.on("unhandledRejection", (err, promise) => {

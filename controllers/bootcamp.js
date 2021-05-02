@@ -1,14 +1,28 @@
 const { response } = require("express");
+const { TimeoutError } = require("got");
 const Bootcamp = require("../models/Bootcamp");
 
-exports.getBootcamps = (req, res, next) => {
-  res.status(200).send({ succuess: true, msg: "Show all bootcamps" });
+exports.getBootcamps = async (req, res, next) => {
+  try {
+    const bootcamps = await Bootcamp.find();
+    res
+      .status(200)
+      .send({ success: true, count: bootcamps.length, data: bootcamps });
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
 };
 
-exports.getBootcamp = (req, res, next) => {
-  res
-    .status(200)
-    .send({ succuess: true, msg: `Show bootcamp ${req.params.id}` });
+exports.getBootcamp = async (req, res, next) => {
+  try {
+    const bootcamp = await Bootcamp.findById(req.params.id);
+    if (!bootcamp) {
+      return res.status(400).json({ success: false });
+    }
+    res.status(200).json({ success: true, data: bootcamp });
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
 };
 
 exports.createBootcamp = async (req, res, next) => {
@@ -23,12 +37,31 @@ exports.createBootcamp = async (req, res, next) => {
   }
 };
 
-exports.updateBootcamp = (req, res, next) => {
-  res
-    .status(200)
-    .send({ succuess: true, msg: `update a bootcamp ${req.params.id}` });
+exports.updateBootcamp = async (req, res, next) => {
+  try {
+    const bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!bootcamp) {
+      return res.status(400).json({ success: false });
+    }
+    res.status(200).json({ success: true, data: bootcamp });
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
 };
 
-exports.deleteBootcamp = (req, res, next) => {
-  res.status(200).send({ succuess: true, msg: "Delete bootcamp" });
+exports.deleteBootcamp = async (req, res, next) => {
+  try {
+    const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
+
+    if (!bootcamp) {
+      return res.status(400).json({ success: false });
+    }
+    res.status(200).json({ success: true, data: {} });
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
 };
