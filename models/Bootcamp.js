@@ -28,10 +28,7 @@ const BootcampSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      match: [
-        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-        "Please add a valid email",
-      ],
+      match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Please add a valid email"],
     },
     address: {
       type: String,
@@ -58,14 +55,7 @@ const BootcampSchema = new mongoose.Schema(
       // Array of strings
       type: [String],
       required: true,
-      enum: [
-        "Web Development",
-        "Mobile Development",
-        "UI/UX",
-        "Data Science",
-        "Business",
-        "Other",
-      ],
+      enum: ["Web Development", "Mobile Development", "UI/UX", "Data Science", "Business", "Other"],
     },
     averageRating: {
       type: Number,
